@@ -9,37 +9,36 @@ import UIKit
 
 class JokeTableVC: UITableViewController {
 
+    private var jokes: [Joke] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        tableView.reloadData()
     }
 
     // MARK: - Table view data source
 
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
-    }
-
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 0
+        return jokes.count
     }
 
-    /*
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! JokeCell
 
-        // Configure the cell...
-
+        NetworkManager.shared.fetchData(from: link) { result in
+            switch result {
+            case .success(let joke):
+                self.jokes.append(joke)
+                cell.configure(with: joke)
+                print(joke.category)
+            case .failure(let failure):
+                print(failure.localizedDescription)
+            }
+        }
         return cell
     }
-    */
+    
 
     /*
     // Override to support conditional editing of the table view.
